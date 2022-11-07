@@ -319,7 +319,7 @@ class TextBar extends StatelessWidget {
                   children: [
                     Text(
                       'Send',
-                      style: GoogleFonts.numans(color: Colors.white),
+                      style: GoogleFonts.nunitoSans(color: Colors.white),
                     ),
                     const SizedBox(
                       width: 4.8,
