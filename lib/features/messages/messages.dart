@@ -43,60 +43,7 @@ class _MessagesState extends State<Messages> {
               "Lorem ipsum dolor sit amet.'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.",
           messageType: "receiver"),
     ];
-    final teamTalkNavBottomNav = BottomAppBar(
-      child: SizedBox(
-        height: 70,
-        width: MediaQuery.of(context).size.width,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 31.83),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              IconBottomBar(
-                image: Image(
-                    image: const AssetImage('assets/images/message.png'),
-                    color: _selectedIndex == 0 ? Colors.blue : null),
-                onPressed: () {
-                  setState(() {
-                    _selectedIndex = 0;
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => const Messages()));
-                  });
-                },
-                selected: _selectedIndex == 0,
-                text: 'Messages',
-              ),
-              IconBottomBar(
-                image: Image(
-                    image: const AssetImage('assets/images/content.png'),
-                    color: _selectedIndex == 1 ? Colors.blue : null),
-                onPressed: () {
-                  setState(() {
-                    _selectedIndex = 1;
-                  });
-                },
-                selected: _selectedIndex == 1,
-                text: 'Content',
-              ),
-              IconBottomBar(
-                image: Image(
-                    image: const AssetImage(
-                      'assets/images/message.png',
-                    ),
-                    color: _selectedIndex == 2 ? Colors.blue : null),
-                onPressed: () {
-                  setState(() {
-                    _selectedIndex = 2;
-                  });
-                },
-                selected: _selectedIndex == 2,
-                text: 'Settings',
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+    final teamTalkNavBottomNav = navbarFunction(context);
     return Scaffold(
       body: Column(
         children: [
@@ -204,6 +151,7 @@ class _MessagesState extends State<Messages> {
                                 padding: const EdgeInsets.fromLTRB(8, 8, 8, 9),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
+                                  // mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     Text(
                                       messages[index].messageType == "receiver"
@@ -219,6 +167,27 @@ class _MessagesState extends State<Messages> {
                                           fontSize: 15,
                                           fontWeight: FontWeight.w400),
                                     ),
+                                    const SizedBox(
+                                      height: 9,
+                                    ),
+                                    Row(
+                                      children: [
+                                        const Image(
+                                          image: AssetImage(
+                                              'assets/images/chatbox.png'),
+                                        ),
+                                        const SizedBox(
+                                          width: 2.52,
+                                        ),
+                                        Text(
+                                          'Delivered',
+                                          style: GoogleFonts.nunitoSans(
+                                              fontSize: 9,
+                                              color: const Color(0xff636F88),
+                                              fontWeight: FontWeight.w400),
+                                        )
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ),
@@ -226,10 +195,6 @@ class _MessagesState extends State<Messages> {
                           );
                         },
                       ),
-                      // Flexible(
-                      // //     child: SizedBox(
-                      //   height: 100,
-                      // )),
                       const TextBar()
                     ],
                   ),
@@ -238,6 +203,67 @@ class _MessagesState extends State<Messages> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  BottomAppBar navbarFunction(BuildContext context) {
+    return BottomAppBar(
+      child: SizedBox(
+        height: 70,
+        width: MediaQuery.of(context).size.width,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 31.83),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              IconBottomBar(
+                image: Image(
+                    image: const AssetImage('assets/images/message.png'),
+                    color: _selectedIndex == 0 ? Colors.blue : null),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 0;
+                  });
+                },
+                selected: _selectedIndex == 0,
+                text: 'Messages',
+              ),
+              IconBottomBar(
+                image: Image(
+                    image: const AssetImage('assets/images/content.png'),
+                    color: _selectedIndex == 1 ? Colors.blue : null),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 1;
+                  });
+                },
+                selected: _selectedIndex == 1,
+                text: 'Content',
+              ),
+              IconBottomBar(
+                image: Image(
+                    image: const AssetImage(
+                      'assets/images/message.png',
+                    ),
+                    color: _selectedIndex == 2 ? Colors.blue : null),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 2;
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const SettingsPage(),
+                      ),
+                    );
+                  });
+                },
+                selected: _selectedIndex == 2,
+                text: 'Settings',
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -262,10 +288,10 @@ class TextBar extends StatelessWidget {
             padding: const EdgeInsets.only(left: 10, bottom: 10, top: 10),
             width: double.infinity,
             decoration: BoxDecoration(
-              border: Border.all(color: Color(0xffDBE0EB)),
+              border: Border.all(color: const Color(0xffDBE0EB)),
               color: Colors.white,
               boxShadow: [
-                BoxShadow(
+                const BoxShadow(
                     offset: Offset(0, 3),
                     color: Color(0xff636F8829),
                     blurRadius: 4)

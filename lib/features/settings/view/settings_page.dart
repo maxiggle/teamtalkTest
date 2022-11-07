@@ -15,63 +15,7 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
-    final teamTalkNavBottomNav = BottomAppBar(
-      child: SizedBox(
-        height: 70,
-        width: MediaQuery.of(context).size.width,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 31.83),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              IconBottomBar(
-                image: Image(
-                    image: const AssetImage('assets/images/message.png'),
-                    color: _selectedIndex == 0 ? Colors.blue : null),
-                onPressed: () {
-                  setState(() {
-                    _selectedIndex = 0;
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => const Messages()));
-                  });
-                },
-                selected: _selectedIndex == 0,
-                text: 'Messages',
-              ),
-              IconBottomBar(
-                image: Image(
-                    image: const AssetImage('assets/images/content.png'),
-                    color: _selectedIndex == 1 ? Colors.blue : null),
-                onPressed: () {
-                  setState(() {
-                    _selectedIndex = 1;
-                  });
-                },
-                selected: _selectedIndex == 1,
-                text: 'Content',
-              ),
-              IconBottomBar(
-                image: Image(
-                    image: const AssetImage(
-                      'assets/images/message.png',
-                    ),
-                    color: _selectedIndex == 2 ? Colors.blue : null),
-                onPressed: () {
-                  setState(() {
-                    _selectedIndex = 2;
-                  });
-                },
-                selected: _selectedIndex == 2,
-                text: 'Settings',
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-
     return Scaffold(
-      bottomNavigationBar: teamTalkNavBottomNav,
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.white,
