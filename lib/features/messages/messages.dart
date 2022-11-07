@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:teamtalk/features/settings/view/settings_page.dart';
 import 'widgets/app_bar_point_cards.dart';
 import 'widgets/customappbar.dart';
 
-class Messages extends StatelessWidget {
+int _selectedIndex = 0;
+
+class Messages extends StatefulWidget {
   const Messages({super.key});
+
+  @override
+  State<Messages> createState() => _MessagesState();
+}
+
+class _MessagesState extends State<Messages> {
   @override
   Widget build(BuildContext context) {
     List<ChatMessage> messages = [
@@ -34,7 +43,60 @@ class Messages extends StatelessWidget {
               "Lorem ipsum dolor sit amet.'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.",
           messageType: "receiver"),
     ];
-
+    final teamTalkNavBottomNav = BottomAppBar(
+      child: SizedBox(
+        height: 70,
+        width: MediaQuery.of(context).size.width,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 31.83),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              IconBottomBar(
+                image: Image(
+                    image: const AssetImage('assets/images/message.png'),
+                    color: _selectedIndex == 0 ? Colors.blue : null),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 0;
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => const Messages()));
+                  });
+                },
+                selected: _selectedIndex == 0,
+                text: 'Messages',
+              ),
+              IconBottomBar(
+                image: Image(
+                    image: const AssetImage('assets/images/content.png'),
+                    color: _selectedIndex == 1 ? Colors.blue : null),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 1;
+                  });
+                },
+                selected: _selectedIndex == 1,
+                text: 'Content',
+              ),
+              IconBottomBar(
+                image: Image(
+                    image: const AssetImage(
+                      'assets/images/message.png',
+                    ),
+                    color: _selectedIndex == 2 ? Colors.blue : null),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 2;
+                  });
+                },
+                selected: _selectedIndex == 2,
+                text: 'Settings',
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
     return Scaffold(
       body: Column(
         children: [
@@ -84,6 +146,7 @@ class Messages extends StatelessWidget {
           ),
           Expanded(
             child: Scaffold(
+              bottomNavigationBar: teamTalkNavBottomNav,
               appBar: CustomAppBar(
                 preferredSize: const Size.fromHeight(48),
                 color: const Color(0xff636F88),
