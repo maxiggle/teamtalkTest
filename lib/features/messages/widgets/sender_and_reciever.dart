@@ -15,7 +15,7 @@ class SenderAndReceiver extends StatelessWidget {
     return ListView.builder(
       itemCount: messages.length,
       shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       itemBuilder: (context, index) {
         return Container(
           padding:
@@ -41,7 +41,6 @@ class SenderAndReceiver extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(8, 8, 8, 9),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                // mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
                     messages[index].messageType == "receiver"
@@ -55,24 +54,21 @@ class SenderAndReceiver extends StatelessWidget {
                     style: GoogleFonts.nunitoSans(
                         fontSize: 15, fontWeight: FontWeight.w400),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 9,
                   ),
                   Row(
+                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      const Image(
-                        image: AssetImage('assets/images/chatbox.png'),
-                      ),
-                      const SizedBox(
-                        width: 2.52,
+                      Image(image: AssetImage('assets/images/chatbox.png')),
+                      SizedBox(
+                        width: 4.52,
                       ),
                       Text(
                         'Delivered',
                         style: GoogleFonts.nunitoSans(
-                            fontSize: 9,
-                            color: const Color(0xff636F88),
-                            fontWeight: FontWeight.w400),
-                      )
+                            fontSize: 9, fontWeight: FontWeight.w400),
+                      ),
                     ],
                   ),
                 ],

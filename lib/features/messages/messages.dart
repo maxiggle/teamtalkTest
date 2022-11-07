@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:teamtalk/features/messages/widgets/textbar.dart';
 import 'package:teamtalk/features/settings/view/settings_page.dart';
 import 'widgets/app_bar_point_cards.dart';
 import 'widgets/customappbar.dart';
+import 'widgets/sender_and_reciever.dart';
 
 int _selectedIndex = 0;
 
@@ -212,128 +214,8 @@ class MessagesWidget extends StatelessWidget {
   }
 }
 
-class SenderAndReceiver extends StatelessWidget {
-  const SenderAndReceiver({
-    Key? key,
-    required this.messages,
-  }) : super(key: key);
-
-  final List<ChatMessage> messages;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: messages.length,
-      shrinkWrap: true,
-      physics: const BouncingScrollPhysics(),
-      itemBuilder: (context, index) {
-        return Container(
-          padding:
-              const EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 12),
-          margin: messages[index].messageType == "receiver"
-              ? const EdgeInsets.only(
-                  right: 40,
-                )
-              : const EdgeInsets.only(
-                  left: 40,
-                ),
-          child: Align(
-            alignment: (messages[index].messageType == "receiver"
-                ? Alignment.topLeft
-                : Alignment.topRight),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: (messages[index].messageType == "sender"
-                    ? Colors.grey.shade200
-                    : const Color(0xffC3DFF8)),
-              ),
-              padding: const EdgeInsets.fromLTRB(8, 8, 8, 9),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    messages[index].messageType == "receiver"
-                        ? 'John Green'
-                        : 'You',
-                    style: GoogleFonts.nunitoSans(
-                        fontSize: 13, fontWeight: FontWeight.w700),
-                  ),
-                  Text(
-                    messages[index].messageContent,
-                    style: GoogleFonts.nunitoSans(
-                        fontSize: 15, fontWeight: FontWeight.w400),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
-
 class ChatMessage {
   String messageContent;
   String messageType;
   ChatMessage({required this.messageContent, required this.messageType});
-}
-
-class TextBar extends StatelessWidget {
-  const TextBar({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Container(
-        padding: const EdgeInsets.only(left: 12, right: 12),
-        decoration: BoxDecoration(
-          border: Border.all(
-              color: const Color(0xffDBE0EB), style: BorderStyle.solid),
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(6),
-          boxShadow: const [
-            BoxShadow(
-                offset: Offset(0, 3), color: Color(0xff636f8829), blurRadius: 4)
-          ],
-        ),
-        child: TextField(
-          maxLines: 4,
-          minLines: 1,
-          style: GoogleFonts.nunitoSans(
-            fontSize: 15,
-            color: const Color(0xff231F20),
-          ),
-          decoration: InputDecoration(
-              suffixIcon: Container(
-                margin: const EdgeInsets.all(8),
-                padding: const EdgeInsets.only(left: 6, right: 6),
-                decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(32)),
-                child: Row(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Send',
-                      style: GoogleFonts.nunitoSans(color: Colors.white),
-                    ),
-                    const SizedBox(
-                      width: 4.8,
-                    ),
-                    const Image(
-                        image: AssetImage('assets/images/sendbutton.png')),
-                  ],
-                ),
-              ),
-              hintText: "Type your reply here",
-              hintStyle: TextStyle(color: Colors.black54),
-              border: InputBorder.none),
-        ),
-      ),
-    );
-  }
 }
