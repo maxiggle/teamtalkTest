@@ -34,6 +34,7 @@ class Messages extends StatelessWidget {
               "Lorem ipsum dolor sit amet.'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.",
           messageType: "receiver"),
     ];
+
     return Scaffold(
       body: Column(
         children: [
