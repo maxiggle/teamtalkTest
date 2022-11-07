@@ -13,9 +13,11 @@ dependencies:
   flutter:
     sdk: flutter
   google_fonts: ^3.0.1
+  flutter_gen: ^5.1.0+1
     
   # state management
   flutter_bloc: ^8.1.1
+
   
   cupertino_icons: ^1.0.2
 
@@ -36,10 +38,14 @@ flutter:
   assets:
     - assets/images/avatar.png
     - assets/images/personal-avatar.png
-    - assets/images/vector.png
     - assets/images/taskandpoint.png
     - assets/images/message.png
     - assets/images/content.png
+    - assets/images/brandlogo.png
+    - assets/images/coins.png
+    - assets/images/users.png
+    - assets/images/backbutton.png
+    - assets/images/johngreen.png
  
   # fonts:
   #   - family: Schyler

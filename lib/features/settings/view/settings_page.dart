@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:teamtalk/features/messages/messages.dart';
 import 'package:teamtalk/features/settings/widgets/disconnect_button.dart';
 import 'package:teamtalk/features/settings/widgets/personal_info_widget.dart';
 import 'package:teamtalk/features/settings/widgets/task_and_point.dart';
@@ -30,6 +31,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 onPressed: () {
                   setState(() {
                     _selectedIndex = 0;
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => const Messages()));
                   });
                 },
                 selected: _selectedIndex == 0,
@@ -82,117 +85,102 @@ class _SettingsPageState extends State<SettingsPage> {
               color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600),
         ),
       ),
-      body: IndexedStack(index: _selectedIndex, children: [
-        Center(
-          child: Text(
-            'Messages',
-            style: GoogleFonts.inter(color: Colors.black, fontSize: 14),
-          ),
-        ),
-        Center(
-          child: Text(
-            'Content',
-            style: GoogleFonts.inter(color: Colors.black, fontSize: 14),
-          ),
-        ),
-        SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(
-                height: 24,
-              ),
-              Container(
-                width: 400.0,
-                height: 123.0,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: Colors.white),
-                child: Column(
-                  children: const [
-                    SizedBox(
-                      height: 16.0,
-                    ),
-                    Image(image: AssetImage('assets/images/avatar.png')),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    Text('Samuel Joseph'),
-                    SizedBox(
-                      height: 16.0,
-                    )
-                  ],
-                ),
-              ),
-              const SizedBox(height: 33.5),
-              Row(
-                children: [
-                  const Image(
-                      image: AssetImage('assets/images/personal-avatar.png')),
-                  const SizedBox(
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(
+              height: 24,
+            ),
+            Container(
+              width: 400.0,
+              height: 123.0,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8), color: Colors.white),
+              child: Column(
+                children: const [
+                  SizedBox(
+                    height: 16.0,
+                  ),
+                  Image(image: AssetImage('assets/images/avatar.png')),
+                  SizedBox(
                     width: 8,
                   ),
-                  Text(
-                    'Personal Info',
-                    style: GoogleFonts.inter(
-                        fontSize: 14, fontWeight: FontWeight.w600),
+                  SizedBox(
+                    height: 16,
                   ),
-                  const SizedBox(
-                    height: 9.5,
-                  ),
-                ],
-              ),
-              const SizedBox(
-                child: PersonalinfoComponent(),
-              ),
-              const SizedBox(
-                height: 32.0,
-              ),
-              Row(
-                children: [
-                  const Image(
-                      image: AssetImage('assets/images/taskandpoint.png')),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    'Task and Points',
-                    style: GoogleFonts.inter(
-                        fontSize: 14.0, fontWeight: FontWeight.w600),
+                  Text('Samuel Joseph'),
+                  SizedBox(
+                    height: 16.0,
                   )
                 ],
               ),
-              const SizedBox(
-                height: 8,
-              ),
-              const TaskandPoint(),
-              const SizedBox(
-                height: 32,
-              ),
-              Row(
-                children: const [
-                  Text('Tags'),
-                ],
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Tags(),
-              const SizedBox(
-                height: 56,
-              ),
-              const Disconnectbutton(),
-              const SizedBox(
-                height: 47.5,
-              )
-            ],
-          ),
+            ),
+            const SizedBox(height: 33.5),
+            Row(
+              children: [
+                const Image(
+                    image: AssetImage('assets/images/personal-avatar.png')),
+                const SizedBox(
+                  width: 8,
+                ),
+                Text(
+                  'Personal Info',
+                  style: GoogleFonts.inter(
+                      fontSize: 14, fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(
+                  height: 9.5,
+                ),
+              ],
+            ),
+            const SizedBox(
+              child: PersonalinfoComponent(),
+            ),
+            const SizedBox(
+              height: 32.0,
+            ),
+            Row(
+              children: [
+                const Image(
+                    image: AssetImage('assets/images/taskandpoint.png')),
+                const SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  'Task and Points',
+                  style: GoogleFonts.inter(
+                      fontSize: 14.0, fontWeight: FontWeight.w600),
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            const TaskandPoint(),
+            const SizedBox(
+              height: 32,
+            ),
+            Row(
+              children: const [
+                Text('Tags'),
+              ],
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            Tags(),
+            const SizedBox(
+              height: 56,
+            ),
+            const Disconnectbutton(),
+            const SizedBox(
+              height: 47.5,
+            )
+          ],
         ),
-      ]),
+      ),
     );
   }
 }
