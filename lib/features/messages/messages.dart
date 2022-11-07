@@ -54,48 +54,43 @@ class _MessagesState extends State<Messages> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              IndexedStack(
-                index: _selectedIndex,
-                children: [
-                  IconBottomBar(
-                    image: Image(
-                        image: const AssetImage('assets/images/message.png'),
-                        color: _selectedIndex == 0 ? Colors.blue : null),
-                    onPressed: () {
-                      setState(() {
-                        _selectedIndex = 0;
-                      });
-                    },
-                    selected: _selectedIndex == 0,
-                    text: 'Messages',
-                  ),
-                  IconBottomBar(
-                    image: Image(
-                        image: const AssetImage('assets/images/content.png'),
-                        color: _selectedIndex == 1 ? Colors.blue : null),
-                    onPressed: () {
-                      setState(() {
-                        _selectedIndex = 1;
-                      });
-                    },
-                    selected: _selectedIndex == 1,
-                    text: 'Content',
-                  ),
-                  IconBottomBar(
-                    image: Image(
-                        image: const AssetImage(
-                          'assets/images/message.png',
-                        ),
-                        color: _selectedIndex == 2 ? Colors.blue : null),
-                    onPressed: () {
-                      setState(() {
-                        _selectedIndex = 2;
-                      });
-                    },
-                    selected: _selectedIndex == 2,
-                    text: 'Settings',
-                  ),
-                ],
+              IconBottomBar(
+                image: Image(
+                    image: const AssetImage('assets/images/message.png'),
+                    color: _selectedIndex == 0 ? Colors.blue : null),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 0;
+                  });
+                },
+                selected: _selectedIndex == 0,
+                text: 'Messages',
+              ),
+              IconBottomBar(
+                image: Image(
+                    image: const AssetImage('assets/images/content.png'),
+                    color: _selectedIndex == 1 ? Colors.blue : null),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 1;
+                  });
+                },
+                selected: _selectedIndex == 1,
+                text: 'Content',
+              ),
+              IconBottomBar(
+                image: Image(
+                    image: const AssetImage(
+                      'assets/images/message.png',
+                    ),
+                    color: _selectedIndex == 2 ? Colors.blue : null),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 2;
+                  });
+                },
+                selected: _selectedIndex == 2,
+                text: 'Settings',
               )
             ],
           ),
@@ -103,8 +98,33 @@ class _MessagesState extends State<Messages> {
       ),
     );
     return Scaffold(
-        // resizeToAvoidBottomInset: false,
-        body: Column(
+      // resizeToAvoidBottomInset: false,
+      bottomNavigationBar: isKeyboardOpen ? null : teamTalkNavBottomNav,
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: [
+          MessagesWidget(messages: messages),
+          const Center(
+            child: Text('Content'),
+          ),
+          const SettingsPage(),
+        ],
+      ),
+    );
+  }
+}
+
+class MessagesWidget extends StatelessWidget {
+  const MessagesWidget({
+    Key? key,
+    required this.messages,
+  }) : super(key: key);
+
+  final List<ChatMessage> messages;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
       children: [
         Container(
           color: const Color(0xff1881DC),
@@ -152,7 +172,6 @@ class _MessagesState extends State<Messages> {
         ),
         Expanded(
           child: Scaffold(
-            bottomNavigationBar: isKeyboardOpen ? null : teamTalkNavBottomNav,
             // resizeToAvoidBottomInset: false,
             appBar: CustomAppBar(
               preferredSize: const Size.fromHeight(48),
@@ -189,7 +208,7 @@ class _MessagesState extends State<Messages> {
           ),
         ),
       ],
-    ));
+    );
   }
 }
 
@@ -266,75 +285,55 @@ class TextBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Align(
-          alignment: Alignment.bottomLeft,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Container(
-              padding: const EdgeInsets.only(left: 12, bottom: 10, right: 12),
-              decoration: BoxDecoration(
-                border: Border.all(
-                    color: const Color(0xffDBE0EB), style: BorderStyle.solid),
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(6),
-                boxShadow: const [
-                  BoxShadow(
-                      offset: Offset(0, 3),
-                      color: Color(0xff636f8829),
-                      blurRadius: 4)
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: TextField(
-                          maxLines: 4,
-                          minLines: 2,
-                          style: GoogleFonts.nunitoSans(
-                            fontSize: 15,
-                            color: const Color(0xff231F20),
-                          ),
-                          decoration: const InputDecoration(
-                              hintText: "Type your reply here",
-                              hintStyle: TextStyle(color: Colors.black54),
-                              border: InputBorder.none),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(
-                        left: 8, top: 4, bottom: 4, right: 6),
-                    margin: const EdgeInsets.only(left: 256),
-                    decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(32)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          'Send',
-                          style: GoogleFonts.numans(color: Colors.white),
-                        ),
-                        const SizedBox(
-                          width: 4.8,
-                        ),
-                        const Image(
-                            image: AssetImage('assets/images/sendbutton.png')),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Container(
+        padding: const EdgeInsets.only(left: 12, right: 12),
+        decoration: BoxDecoration(
+          border: Border.all(
+              color: const Color(0xffDBE0EB), style: BorderStyle.solid),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(6),
+          boxShadow: const [
+            BoxShadow(
+                offset: Offset(0, 3), color: Color(0xff636f8829), blurRadius: 4)
+          ],
         ),
-      ],
+        child: TextField(
+          maxLines: 4,
+          minLines: 1,
+          style: GoogleFonts.nunitoSans(
+            fontSize: 15,
+            color: const Color(0xff231F20),
+          ),
+          decoration: InputDecoration(
+              suffixIcon: Container(
+                margin: const EdgeInsets.all(8),
+                padding: const EdgeInsets.only(left: 6, right: 6),
+                decoration: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(32)),
+                child: Row(
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Send',
+                      style: GoogleFonts.numans(color: Colors.white),
+                    ),
+                    const SizedBox(
+                      width: 4.8,
+                    ),
+                    const Image(
+                        image: AssetImage('assets/images/sendbutton.png')),
+                  ],
+                ),
+              ),
+              hintText: "Type your reply here",
+              hintStyle: TextStyle(color: Colors.black54),
+              border: InputBorder.none),
+        ),
+      ),
     );
   }
 }

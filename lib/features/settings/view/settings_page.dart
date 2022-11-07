@@ -175,7 +175,7 @@ class Tags extends StatelessWidget {
   }
 }
 
-int _selectedIndex = 0;
+// int _selectedIndex = 0;
 
 class IconBottomBar extends StatefulWidget {
   IconBottomBar(
