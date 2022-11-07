@@ -45,60 +45,7 @@ class _MessagesState extends State<Messages> {
               "Lorem ipsum dolor sit amet.'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.",
           messageType: "receiver"),
     ];
-    final teamTalkNavBottomNav = BottomAppBar(
-      child: SizedBox(
-        height: 70,
-        width: MediaQuery.of(context).size.width,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 31.83),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconBottomBar(
-                image: Image(
-                    image: const AssetImage('assets/images/message.png'),
-                    color: _selectedIndex == 0 ? Colors.blue : null),
-                onPressed: () {
-                  setState(() {
-                    _selectedIndex = 0;
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => const Messages()));
-                  });
-                },
-                selected: _selectedIndex == 0,
-                text: 'Messages',
-              ),
-              IconBottomBar(
-                image: Image(
-                    image: const AssetImage('assets/images/content.png'),
-                    color: _selectedIndex == 1 ? Colors.blue : null),
-                onPressed: () {
-                  setState(() {
-                    _selectedIndex = 1;
-                  });
-                },
-                selected: _selectedIndex == 1,
-                text: 'Content',
-              ),
-              IconBottomBar(
-                image: Image(
-                    image: const AssetImage(
-                      'assets/images/message.png',
-                    ),
-                    color: _selectedIndex == 2 ? Colors.blue : null),
-                onPressed: () {
-                  setState(() {
-                    _selectedIndex = 2;
-                  });
-                },
-                selected: _selectedIndex == 2,
-                text: 'Settings',
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+    final teamTalkNavBottomNav = bottomNavBar(context);
     return Scaffold(
         // resizeToAvoidBottomInset: false,
         body: SizedBox(
@@ -177,60 +124,12 @@ class _MessagesState extends State<Messages> {
                     height: 24,
                   ),
                   Expanded(
-                    child: ListView.builder(
-                      itemCount: messages.length,
-                      shrinkWrap: true,
-                      physics: const BouncingScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return Container(
-                          padding: const EdgeInsets.only(
-                              left: 16, right: 16, top: 0, bottom: 12),
-                          margin: messages[index].messageType == "receiver"
-                              ? const EdgeInsets.only(
-                                  right: 40,
-                                )
-                              : const EdgeInsets.only(
-                                  left: 40,
-                                ),
-                          child: Align(
-                            alignment:
-                                (messages[index].messageType == "receiver"
-                                    ? Alignment.topLeft
-                                    : Alignment.topRight),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color: (messages[index].messageType == "sender"
-                                    ? Colors.grey.shade200
-                                    : const Color(0xffC3DFF8)),
-                              ),
-                              padding: const EdgeInsets.fromLTRB(8, 8, 8, 9),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    messages[index].messageType == "receiver"
-                                        ? 'John Green'
-                                        : 'You',
-                                    style: GoogleFonts.nunitoSans(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                  Text(
-                                    messages[index].messageContent,
-                                    style: GoogleFonts.nunitoSans(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                    child: SenderAndReceiver(messages: messages),
                   ),
-                  const TextBar()
+                  const TextBar(),
+                  const SizedBox(
+                    height: 21,
+                  )
                 ],
               ),
             ),
@@ -238,6 +137,125 @@ class _MessagesState extends State<Messages> {
         ],
       ),
     ));
+  }
+
+  BottomAppBar bottomNavBar(BuildContext context) {
+    return BottomAppBar(
+      child: SizedBox(
+        height: 70,
+        width: MediaQuery.of(context).size.width,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 31.83),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconBottomBar(
+                image: Image(
+                    image: const AssetImage('assets/images/message.png'),
+                    color: _selectedIndex == 0 ? Colors.blue : null),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 0;
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => const Messages()));
+                  });
+                },
+                selected: _selectedIndex == 0,
+                text: 'Messages',
+              ),
+              IconBottomBar(
+                image: Image(
+                    image: const AssetImage('assets/images/content.png'),
+                    color: _selectedIndex == 1 ? Colors.blue : null),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 1;
+                  });
+                },
+                selected: _selectedIndex == 1,
+                text: 'Content',
+              ),
+              IconBottomBar(
+                image: Image(
+                    image: const AssetImage(
+                      'assets/images/message.png',
+                    ),
+                    color: _selectedIndex == 2 ? Colors.blue : null),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 2;
+                  });
+                },
+                selected: _selectedIndex == 2,
+                text: 'Settings',
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SenderAndReceiver extends StatelessWidget {
+  const SenderAndReceiver({
+    Key? key,
+    required this.messages,
+  }) : super(key: key);
+
+  final List<ChatMessage> messages;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: messages.length,
+      shrinkWrap: true,
+      physics: const BouncingScrollPhysics(),
+      itemBuilder: (context, index) {
+        return Container(
+          padding:
+              const EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 12),
+          margin: messages[index].messageType == "receiver"
+              ? const EdgeInsets.only(
+                  right: 40,
+                )
+              : const EdgeInsets.only(
+                  left: 40,
+                ),
+          child: Align(
+            alignment: (messages[index].messageType == "receiver"
+                ? Alignment.topLeft
+                : Alignment.topRight),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: (messages[index].messageType == "sender"
+                    ? Colors.grey.shade200
+                    : const Color(0xffC3DFF8)),
+              ),
+              padding: const EdgeInsets.fromLTRB(8, 8, 8, 9),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    messages[index].messageType == "receiver"
+                        ? 'John Green'
+                        : 'You',
+                    style: GoogleFonts.nunitoSans(
+                        fontSize: 13, fontWeight: FontWeight.w700),
+                  ),
+                  Text(
+                    messages[index].messageContent,
+                    style: GoogleFonts.nunitoSans(
+                        fontSize: 15, fontWeight: FontWeight.w400),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }
 
@@ -256,62 +274,72 @@ class TextBar extends StatelessWidget {
       children: <Widget>[
         Align(
           alignment: Alignment.bottomLeft,
-          child: Container(
-            padding: const EdgeInsets.only(left: 10, bottom: 10, top: 10),
-            width: double.infinity,
-            decoration: BoxDecoration(
-              border: Border.all(color: Color(0xffDBE0EB)),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                    offset: Offset(0, 3),
-                    color: Color(0xff636F8829),
-                    blurRadius: 4)
-              ],
-            ),
-            child: Row(
-              children: <Widget>[
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    height: 30,
-                    width: 30,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Container(
+              padding: const EdgeInsets.only(
+                  left: 12, bottom: 10, top: 10, right: 12),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                border: Border.all(color: const Color(0xffDBE0EB)),
+                color: Colors.white,
+                boxShadow: const [
+                  BoxShadow(
+                      offset: Offset(0, 3),
+                      color: Color(0xff636f8829),
+                      blurRadius: 4)
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Row(
+                    children: <Widget>[
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      Expanded(
+                        child: TextField(
+                          maxLines: 4,
+                          style: GoogleFonts.nunitoSans(
+                            fontSize: 15,
+                            color: const Color(0xff231F20),
+                          ),
+                          decoration: const InputDecoration(
+                              hintText: "Write message...",
+                              hintStyle: TextStyle(color: Colors.black54),
+                              border: InputBorder.none),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 41,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(
+                        left: 8, top: 4, bottom: 4, right: 6),
+                    margin: const EdgeInsets.only(left: 256),
                     decoration: BoxDecoration(
-                      color: Colors.lightBlue,
-                      borderRadius: BorderRadius.circular(30),
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(32)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          'Send',
+                          style: GoogleFonts.numans(color: Colors.white),
+                        ),
+                        const SizedBox(
+                          width: 4.8,
+                        ),
+                        const Image(
+                            image: AssetImage('assets/images/sendbutton.png')),
+                      ],
                     ),
-                    child: const Icon(
-                      Icons.add,
-                      color: Colors.white,
-                      size: 20,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 15,
-                ),
-                const Expanded(
-                  child: TextField(
-                    decoration: InputDecoration(
-                        hintText: "Write message...",
-                        hintStyle: TextStyle(color: Colors.black54),
-                        border: InputBorder.none),
-                  ),
-                ),
-                const SizedBox(
-                  width: 15,
-                ),
-                FloatingActionButton(
-                  onPressed: () {},
-                  child: const Icon(
-                    Icons.send,
-                    color: Colors.white,
-                    size: 18,
-                  ),
-                  backgroundColor: Colors.blue,
-                  elevation: 0,
-                ),
-              ],
+                  )
+                ],
+              ),
             ),
           ),
         ),
