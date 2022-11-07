@@ -92,7 +92,7 @@ class _MessagesState extends State<Messages> {
                   });
                 },
                 selected: _selectedIndex == 2,
-                text: 'Settings',
+                text: 'Tasks',
               )
             ],
           ),
