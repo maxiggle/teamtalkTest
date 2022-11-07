@@ -45,102 +45,7 @@ class _MessagesState extends State<Messages> {
               "Lorem ipsum dolor sit amet.'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.",
           messageType: "receiver"),
     ];
-    final teamTalkNavBottomNav = bottomNavBar(context);
-    return Scaffold(
-        // resizeToAvoidBottomInset: false,
-        body: SizedBox(
-      height: MediaQuery.of(context).size.height,
-      child: Column(
-        children: [
-          Container(
-            color: const Color(0xff1881DC),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: const [
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(0, 36.0, 0, 12),
-                        child: Image(
-                          image: AssetImage('assets/images/brandlogo.png'),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 8,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
-                        child: PointsCard(),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(85, 33.5, 0, 0),
-                    child: Text(
-                      'Hello, Samuel',
-                      style: GoogleFonts.nunito(
-                          fontSize: 13,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700),
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(0, 33.5, 0, 0),
-                    child: CircleAvatar(
-                      backgroundImage: AssetImage('assets/images/users.png'),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-          Expanded(
-            child: Scaffold(
-              bottomNavigationBar: isKeyboardOpen ? null : teamTalkNavBottomNav,
-              // resizeToAvoidBottomInset: false,
-              appBar: CustomAppBar(
-                preferredSize: const Size.fromHeight(48),
-                color: const Color(0xff636F88),
-                custombackButton: const Image(
-                  image: AssetImage('assets/images/backbutton.png'),
-                ),
-                userImage: 'assets/images/johngreen.png',
-                userName: 'John Green',
-                userDescription: 'Brand Manager',
-              ),
-              body: Column(
-                children: [
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  Text(
-                    'This is the message subject',
-                    style: GoogleFonts.nunitoSans(
-                        fontSize: 20, fontWeight: FontWeight.w700),
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  Expanded(
-                    child: SenderAndReceiver(messages: messages),
-                  ),
-                  const TextBar(),
-                  const SizedBox(
-                    height: 21,
-                  )
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    ));
-  }
-
-  BottomAppBar bottomNavBar(BuildContext context) {
-    return BottomAppBar(
+    final teamTalkNavBottomNav = BottomAppBar(
       child: SizedBox(
         height: 70,
         width: MediaQuery.of(context).size.width,
@@ -149,51 +54,142 @@ class _MessagesState extends State<Messages> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              IconBottomBar(
-                image: Image(
-                    image: const AssetImage('assets/images/message.png'),
-                    color: _selectedIndex == 0 ? Colors.blue : null),
-                onPressed: () {
-                  setState(() {
-                    _selectedIndex = 0;
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => const Messages()));
-                  });
-                },
-                selected: _selectedIndex == 0,
-                text: 'Messages',
-              ),
-              IconBottomBar(
-                image: Image(
-                    image: const AssetImage('assets/images/content.png'),
-                    color: _selectedIndex == 1 ? Colors.blue : null),
-                onPressed: () {
-                  setState(() {
-                    _selectedIndex = 1;
-                  });
-                },
-                selected: _selectedIndex == 1,
-                text: 'Content',
-              ),
-              IconBottomBar(
-                image: Image(
-                    image: const AssetImage(
-                      'assets/images/message.png',
-                    ),
-                    color: _selectedIndex == 2 ? Colors.blue : null),
-                onPressed: () {
-                  setState(() {
-                    _selectedIndex = 2;
-                  });
-                },
-                selected: _selectedIndex == 2,
-                text: 'Settings',
-              ),
+              IndexedStack(
+                index: _selectedIndex,
+                children: [
+                  IconBottomBar(
+                    image: Image(
+                        image: const AssetImage('assets/images/message.png'),
+                        color: _selectedIndex == 0 ? Colors.blue : null),
+                    onPressed: () {
+                      setState(() {
+                        _selectedIndex = 0;
+                      });
+                    },
+                    selected: _selectedIndex == 0,
+                    text: 'Messages',
+                  ),
+                  IconBottomBar(
+                    image: Image(
+                        image: const AssetImage('assets/images/content.png'),
+                        color: _selectedIndex == 1 ? Colors.blue : null),
+                    onPressed: () {
+                      setState(() {
+                        _selectedIndex = 1;
+                      });
+                    },
+                    selected: _selectedIndex == 1,
+                    text: 'Content',
+                  ),
+                  IconBottomBar(
+                    image: Image(
+                        image: const AssetImage(
+                          'assets/images/message.png',
+                        ),
+                        color: _selectedIndex == 2 ? Colors.blue : null),
+                    onPressed: () {
+                      setState(() {
+                        _selectedIndex = 2;
+                      });
+                    },
+                    selected: _selectedIndex == 2,
+                    text: 'Settings',
+                  ),
+                ],
+              )
             ],
           ),
         ),
       ),
     );
+    return Scaffold(
+        // resizeToAvoidBottomInset: false,
+        body: Column(
+      children: [
+        Container(
+          color: const Color(0xff1881DC),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: const [
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(0, 36.0, 0, 12),
+                      child: Image(
+                        image: AssetImage('assets/images/brandlogo.png'),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 8,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
+                      child: PointsCard(),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(85, 33.5, 0, 0),
+                  child: Text(
+                    'Hello, Samuel',
+                    style: GoogleFonts.nunito(
+                        fontSize: 13,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(0, 33.5, 0, 0),
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage('assets/images/users.png'),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+        Expanded(
+          child: Scaffold(
+            bottomNavigationBar: isKeyboardOpen ? null : teamTalkNavBottomNav,
+            // resizeToAvoidBottomInset: false,
+            appBar: CustomAppBar(
+              preferredSize: const Size.fromHeight(48),
+              color: const Color(0xff636F88),
+              custombackButton: const Image(
+                image: AssetImage('assets/images/backbutton.png'),
+              ),
+              userImage: 'assets/images/johngreen.png',
+              userName: 'John Green',
+              userDescription: 'Brand Manager',
+            ),
+            body: Column(
+              children: [
+                const SizedBox(
+                  height: 24,
+                ),
+                Text(
+                  'This is the message subject',
+                  style: GoogleFonts.nunitoSans(
+                      fontSize: 20, fontWeight: FontWeight.w700),
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                Expanded(
+                  child: SenderAndReceiver(messages: messages),
+                ),
+                const TextBar(),
+                const SizedBox(
+                  height: 21,
+                )
+              ],
+            ),
+          ),
+        ),
+      ],
+    ));
   }
 }
 
@@ -277,12 +273,12 @@ class TextBar extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Container(
-              padding: const EdgeInsets.only(
-                  left: 12, bottom: 10, top: 10, right: 12),
-              width: double.infinity,
+              padding: const EdgeInsets.only(left: 12, bottom: 10, right: 12),
               decoration: BoxDecoration(
-                border: Border.all(color: const Color(0xffDBE0EB)),
+                border: Border.all(
+                    color: const Color(0xffDBE0EB), style: BorderStyle.solid),
                 color: Colors.white,
+                borderRadius: BorderRadius.circular(6),
                 boxShadow: const [
                   BoxShadow(
                       offset: Offset(0, 3),
@@ -295,26 +291,21 @@ class TextBar extends StatelessWidget {
                 children: [
                   Row(
                     children: <Widget>[
-                      const SizedBox(
-                        width: 15,
-                      ),
                       Expanded(
                         child: TextField(
                           maxLines: 4,
+                          minLines: 2,
                           style: GoogleFonts.nunitoSans(
                             fontSize: 15,
                             color: const Color(0xff231F20),
                           ),
                           decoration: const InputDecoration(
-                              hintText: "Write message...",
+                              hintText: "Type your reply here",
                               hintStyle: TextStyle(color: Colors.black54),
                               border: InputBorder.none),
                         ),
                       ),
                     ],
-                  ),
-                  const SizedBox(
-                    height: 41,
                   ),
                   Container(
                     padding: const EdgeInsets.only(
