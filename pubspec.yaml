@@ -48,6 +48,7 @@ flutter:
     - assets/images/johngreen.png
     - assets/images/chatbox.png
     - assets/images/sendbutton.png
+    - assets/images/timestop.png
  
   # fonts:
   #   - family: Schyler

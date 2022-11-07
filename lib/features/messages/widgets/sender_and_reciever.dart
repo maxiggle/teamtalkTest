@@ -58,17 +58,31 @@ class SenderAndReceiver extends StatelessWidget {
                     height: 9,
                   ),
                   Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Image(image: AssetImage('assets/images/chatbox.png')),
-                      SizedBox(
-                        width: 4.52,
+                      Row(
+                        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Image(image: AssetImage('assets/images/chatbox.png')),
+                          SizedBox(
+                            width: 4.52,
+                          ),
+                          Text(
+                            'Delivered',
+                            style: GoogleFonts.nunitoSans(
+                                fontSize: 9, fontWeight: FontWeight.w400),
+                          ),
+                        ],
                       ),
                       Text(
-                        'Delivered',
+                        '22/10/22 5:15 PM',
                         style: GoogleFonts.nunitoSans(
-                            fontSize: 9, fontWeight: FontWeight.w400),
+                          fontSize: 11,
+                        ),
                       ),
+                      // Image(image: AssetImage('assets/images/timestop.png')),
+
+                      // Text
                     ],
                   ),
                 ],
